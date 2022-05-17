@@ -23,7 +23,7 @@ boot || goto ubuntu16_exit
 :ubuntu_server
 kernel http://10.10.12.253:8080/ubuntu16/server/install/vmlinuz
 initrd http://10.10.12.253:8080/ubuntu16/server/install/initrd.gz
-imgargs vmlinuz put_kernel_img_args_here
+imgargs http://10.10.12.253:8080/ubuntu16/server/install.filesystem.squashfs
 boot || goto ubuntu16_exit
 
 :ubuntu16_exit
