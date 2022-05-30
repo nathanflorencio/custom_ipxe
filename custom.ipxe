@@ -1,29 +1,37 @@
 #!ipxe
 ###
-### netboot.xyz - Ubuntu 16.04 Server & LTS
+### netboot.xyz-custom menu example
 ###
 
 :custom
-clear ubuntu16_choice
-menu Ubuntu 16.04 - Modified
-item --gap Ubuntu 16.04
-item ubuntu_lts ${space} Loading a kernel and initrd
-item ubuntu_server ${space} Loading a kernel and initrd
-choose ubuntu16_choice || goto ubuntu16_exit
+clear custom_choice
+menu This is a Test Menu
+item --gap This is the first sub menu
+item option_one ${space} Loading a kernel and initrd
+item option_two ${space} Loading an ISO
+item --gap This is a second sub menu
+item option_three ${space} Loads another custom sub menu
+item option_four ${space} This is option four
+choose custom_choice || goto custom_exit
 echo ${cls}
-goto ${ubuntu16_choice}
-goto ubuntu16_exit
+goto ${custom_choice}
+goto custom_exit
 
-:ubuntu_lts
-kernel http://10.10.12.253:8080/ubuntu16/desktop/casper/vmlinuz
-initrd http://10.10.12.253:8080/ubuntu16/desktop/casper/initrd
-boot || goto ubuntu16_exit
+:option_one
+kernel https://10.10.12.253:8080/ubuntu16/server/install/vmlinuz
+initrd https://10.10.12.253:8080/ubuntu16/server/install/initrd
+imgargs vmlinuz put_kernel_img_args_here
+boot || goto custom_exit
 
-:ubuntu_server
-kernel http://10.10.12.253:8080/ubuntu16/server/install/vmlinuz
-initrd http://10.10.12.253:8080/ubuntu16/server/install/initrd.gz
-boot || goto ubuntu16_exit
+:option_two
+kernel https://boot.netboot.xyz/memdisk raw iso
+initrd http://path.to/iso
+boot || goto custom_exit
 
-:ubuntu16_exit
+:option_three
+echo Chains into another menu...
+chain https://raw.githubusercontent.com/${github_user}/netboot.xyz-custom/master/custom1.ipxe || goto custom
+
+:custom_exit
 chain utils.ipxe
 exit
