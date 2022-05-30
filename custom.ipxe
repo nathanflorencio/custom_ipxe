@@ -20,8 +20,8 @@ initrd http://10.10.12.253:8080/ubuntu16/desktop/casper/initrd
 boot || goto ubuntu16_exit
 
 :ubuntu_server
-kernel http://10.10.12.253:8080/ubuntu16/server/install/hwe-vmlinuz
-initrd http://10.10.12.253:8080/ubuntu16/server/install/hwe-initrd.gz
+kernel http://10.10.12.253:8080/ubuntu16/server/install/vmlinuz
+initrd http://10.10.12.253:8080/ubuntu16/server/install/initrd.gz
 boot || goto ubuntu16_exit
 
 :ubuntu16_exit
